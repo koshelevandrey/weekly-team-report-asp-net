@@ -20,9 +20,9 @@ namespace CM.WeeklyTeamReport.Domain.Tests
             string anythingElseText = "Looking forward to launching our first product";
             WeeklyReport weeklyReport = new WeeklyReport(dateStart, dateEnd, year, morale,
                 stress, workload, weeklyHighText, weeklyLowText, anythingElseText);
-            weeklyReport.MoraleComment = "Not bad";
-            weeklyReport.StressComment = "Not good";
-            weeklyReport.WorkloadComment = "Not good and not bad";
+            weeklyReport.MoraleComment = "1";
+            weeklyReport.StressComment = "2";
+            weeklyReport.WorkloadComment = "3";
 
             Assert.NotNull(weeklyReport);
         }
