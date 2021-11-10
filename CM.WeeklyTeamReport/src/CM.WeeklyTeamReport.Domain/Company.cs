@@ -5,9 +5,9 @@ namespace CM.WeeklyTeamReport.Domain
 {
     public class Company
     {
-        public string Name;
-        public string JoinedDate;
-        public List<TeamMember> TeamMembers;
+        public string Name { get; set; }
+        public string JoinedDate { get; set; }
+        public List<TeamMember> TeamMembers { get; set; }
 
         public Company(string name, string joinedDate, List<TeamMember> teamMembers)
         {
