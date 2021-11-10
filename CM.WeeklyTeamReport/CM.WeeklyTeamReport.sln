@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.WeeklyTeamReport.Domain", "src\CM.WeeklyTeamReport.Domain\CM.WeeklyTeamReport.Domain.csproj", "{30F7043B-6AAF-4B6A-9817-2BD8E082A248}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.WeeklyTeamReport.Domain.Tests", "test\CM.WeeklyTeamReport.Domain.Tests\CM.WeeklyTeamReport.Domain.Tests.csproj", "{9F22078D-6B1D-4B3A-8F75-6A830F5A24A2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30F7043B-6AAF-4B6A-9817-2BD8E082A248}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30F7043B-6AAF-4B6A-9817-2BD8E082A248}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30F7043B-6AAF-4B6A-9817-2BD8E082A248}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30F7043B-6AAF-4B6A-9817-2BD8E082A248}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F22078D-6B1D-4B3A-8F75-6A830F5A24A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F22078D-6B1D-4B3A-8F75-6A830F5A24A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F22078D-6B1D-4B3A-8F75-6A830F5A24A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F22078D-6B1D-4B3A-8F75-6A830F5A24A2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6707900E-8CB8-4F88-81FB-9945995CB073}
+	EndGlobalSection
+EndGlobal
