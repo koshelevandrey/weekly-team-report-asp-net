@@ -25,17 +25,17 @@ namespace CM.WeeklyTeamReport.Domain.Tests
 
             Assert.NotNull(weeklyReport);
 
-            Assert.True(weeklyReport.DateStart == new DateTime(2020, 2, 16));
-            Assert.True(weeklyReport.DateEnd == new DateTime(2020, 2, 22));
-            Assert.True(weeklyReport.Morale == WeeklyStatus.Great);
-            Assert.True(weeklyReport.Stress == WeeklyStatus.Good);
-            Assert.True(weeklyReport.Workload == WeeklyStatus.Okay);
-            Assert.True(weeklyReport.MoraleComment == "1");
-            Assert.True(weeklyReport.StressComment == "2");
-            Assert.True(weeklyReport.WorkloadComment == "3");
-            Assert.True(weeklyReport.WeeklyHighText == "Identified our goal and priorities");
-            Assert.True(weeklyReport.WeeklyLowText == "Cold weather");
-            Assert.True(weeklyReport.AnythingElseText == "Looking forward to launching our first product");
+            Assert.Equal(new DateTime(2020, 2, 16), weeklyReport.DateStart);
+            Assert.Equal(new DateTime(2020, 2, 22), weeklyReport.DateEnd);
+            Assert.Equal(WeeklyStatus.Great, weeklyReport.Morale);
+            Assert.Equal(WeeklyStatus.Good, weeklyReport.Stress);
+            Assert.Equal(WeeklyStatus.Okay, weeklyReport.Workload);
+            Assert.Equal("1", weeklyReport.MoraleComment);
+            Assert.Equal("2", weeklyReport.StressComment);
+            Assert.Equal("3", weeklyReport.WorkloadComment);
+            Assert.Equal("Identified our goal and priorities", weeklyReport.WeeklyHighText);
+            Assert.Equal("Cold weather", weeklyReport.WeeklyLowText);
+            Assert.Equal("Looking forward to launching our first product", weeklyReport.AnythingElseText);
         }
 
         [Fact]
@@ -53,13 +53,13 @@ namespace CM.WeeklyTeamReport.Domain.Tests
 
             Assert.NotNull(teamMember);
 
-            Assert.True(teamMember.FirstName == "Ivan");
-            Assert.True(teamMember.LastName == "Petrov");
-            Assert.True(teamMember.Title == "Engineer");
-            Assert.True(teamMember.InviteLink == "www.example.com");
-            Assert.True(teamMember.Reports == reports);
-            Assert.True(teamMember.ReportsTo == reportsTo);
-            Assert.True(teamMember.GetReportsFrom == getReportsFrom);
+            Assert.Equal("Ivan", teamMember.FirstName);
+            Assert.Equal("Petrov", teamMember.LastName);
+            Assert.Equal("Engineer", teamMember.Title);
+            Assert.Equal("www.example.com", teamMember.InviteLink);
+            Assert.Equal(reports, teamMember.Reports);
+            Assert.Equal(reportsTo, teamMember.ReportsTo);
+            Assert.Equal(getReportsFrom, teamMember.GetReportsFrom);
         }
 
         [Fact]
@@ -72,9 +72,9 @@ namespace CM.WeeklyTeamReport.Domain.Tests
 
             Assert.NotNull(company);
 
-            Assert.True(company.Name == "ANKO");
-            Assert.True(company.JoinedDate == new DateTime(2020, 1, 2));
-            Assert.True(company.TeamMembers == teamMembers);
+            Assert.Equal("ANKO", company.Name);
+            Assert.Equal(new DateTime(2020, 1, 2), company.JoinedDate);
+            Assert.Equal(teamMembers, company.TeamMembers);
         }
     }
 }
