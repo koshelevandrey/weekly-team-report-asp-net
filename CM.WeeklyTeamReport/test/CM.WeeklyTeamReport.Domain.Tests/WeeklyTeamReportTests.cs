@@ -9,16 +9,15 @@ namespace CM.WeeklyTeamReport.Domain.Tests
         [Fact]
         public void ShouldBeAbleToCreateWeeklyReport()
         {
-            string dateStart = "February 16";
-            string dateEnd = "February 22";
-            string year = "2020";
+            DateTime dateStart = new DateTime(2020, 2, 16);
+            DateTime dateEnd = new DateTime(2020, 2, 22);
             WeeklyStatus morale = WeeklyStatus.Great;
             WeeklyStatus stress = WeeklyStatus.Good;
             WeeklyStatus workload = WeeklyStatus.Okay;
             string weeklyHighText = "Identified our goal and priorities";
             string weeklyLowText = "Cold weather";
             string anythingElseText = "Looking forward to launching our first product";
-            WeeklyReport weeklyReport = new WeeklyReport(dateStart, dateEnd, year, morale,
+            WeeklyReport weeklyReport = new WeeklyReport(dateStart, dateEnd, morale,
                 stress, workload, weeklyHighText, weeklyLowText, anythingElseText);
             weeklyReport.MoraleComment = "1";
             weeklyReport.StressComment = "2";
@@ -26,9 +25,8 @@ namespace CM.WeeklyTeamReport.Domain.Tests
 
             Assert.NotNull(weeklyReport);
 
-            Assert.True(weeklyReport.DateStart == "February 16");
-            Assert.True(weeklyReport.DateEnd == "February 22");
-            Assert.True(weeklyReport.Year == "2020");
+            Assert.True(weeklyReport.DateStart == new DateTime(2020, 2, 16));
+            Assert.True(weeklyReport.DateEnd == new DateTime(2020, 2, 22));
             Assert.True(weeklyReport.Morale == WeeklyStatus.Great);
             Assert.True(weeklyReport.Stress == WeeklyStatus.Good);
             Assert.True(weeklyReport.Workload == WeeklyStatus.Okay);
@@ -68,14 +66,14 @@ namespace CM.WeeklyTeamReport.Domain.Tests
         public void ShouldBeAbleToCreateCompany()
         {
             string name = "ANKO";
-            string joinedDate = "January 2020";
+            DateTime joinedDate = new DateTime(2020, 1, 2);
             List<TeamMember> teamMembers = new List<TeamMember>();
             Company company = new Company(name, joinedDate, teamMembers);
 
             Assert.NotNull(company);
 
             Assert.True(company.Name == "ANKO");
-            Assert.True(company.JoinedDate == "January 2020");
+            Assert.True(company.JoinedDate == new DateTime(2020, 1, 2));
             Assert.True(company.TeamMembers == teamMembers);
         }
     }
