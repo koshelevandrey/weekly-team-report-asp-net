@@ -5,6 +5,7 @@ namespace CM.WeeklyTeamReport.Domain
 {
     public class Company
     {
+        public int CompanyId { get; set; }
         public string Name { get; set; }
         public DateTime JoinedDate { get; set; }
         public List<TeamMember> TeamMembers { get; set; }
@@ -14,6 +15,11 @@ namespace CM.WeeklyTeamReport.Domain
             Name = name;
             JoinedDate = joinedDate;
             TeamMembers = teamMembers;
+        }
+
+        public void AddTeamMember(TeamMember teamMember)
+        {
+
         }
     }
 }

@@ -4,6 +4,8 @@ namespace CM.WeeklyTeamReport.Domain
 {
     public class WeeklyReport
     {
+        public int WeeklyReportId { get; set; }
+        public int TeamMemberId { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
         public WeeklyStatus Morale { get; set; }
