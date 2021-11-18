@@ -16,10 +16,5 @@ namespace CM.WeeklyTeamReport.Domain
             JoinedDate = joinedDate;
             TeamMembers = teamMembers;
         }
-
-        public void AddTeamMember(TeamMember teamMember)
-        {
-
-        }
     }
 }
