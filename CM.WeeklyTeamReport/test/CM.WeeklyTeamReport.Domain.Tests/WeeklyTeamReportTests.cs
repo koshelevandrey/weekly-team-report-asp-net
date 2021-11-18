@@ -19,12 +19,15 @@ namespace CM.WeeklyTeamReport.Domain.Tests
             string anythingElseText = "Looking forward to launching our first product";
             WeeklyReport weeklyReport = new WeeklyReport(dateStart, dateEnd, morale,
                 stress, workload, weeklyHighText, weeklyLowText, anythingElseText);
+            weeklyReport.WeeklyReportId = 1;
+            weeklyReport.TeamMemberId = 2;
             weeklyReport.MoraleComment = "1";
             weeklyReport.StressComment = "2";
             weeklyReport.WorkloadComment = "3";
 
             Assert.NotNull(weeklyReport);
-
+            Assert.Equal(1, weeklyReport.WeeklyReportId);
+            Assert.Equal(2, weeklyReport.TeamMemberId);
             Assert.Equal(new DateTime(2020, 2, 16), weeklyReport.DateStart);
             Assert.Equal(new DateTime(2020, 2, 22), weeklyReport.DateEnd);
             Assert.Equal(WeeklyStatus.Great, weeklyReport.Morale);
@@ -50,9 +53,12 @@ namespace CM.WeeklyTeamReport.Domain.Tests
             List<TeamMember> getReportsFrom = new List<TeamMember>();
             TeamMember teamMember = new TeamMember(firstName, lastName, title, inviteLink, reports,
                 reportsTo, getReportsFrom);
+            teamMember.TeamMemberId = 2;
+            teamMember.CompanyId = 1;
 
             Assert.NotNull(teamMember);
-
+            Assert.Equal(2, teamMember.TeamMemberId);
+            Assert.Equal(1, teamMember.CompanyId);
             Assert.Equal("Ivan", teamMember.FirstName);
             Assert.Equal("Petrov", teamMember.LastName);
             Assert.Equal("Engineer", teamMember.Title);
@@ -69,9 +75,10 @@ namespace CM.WeeklyTeamReport.Domain.Tests
             DateTime joinedDate = new DateTime(2020, 1, 2);
             List<TeamMember> teamMembers = new List<TeamMember>();
             Company company = new Company(name, joinedDate, teamMembers);
+            company.CompanyId = 1;
 
             Assert.NotNull(company);
-
+            Assert.Equal(1, company.CompanyId);
             Assert.Equal("ANKO", company.Name);
             Assert.Equal(new DateTime(2020, 1, 2), company.JoinedDate);
             Assert.Equal(teamMembers, company.TeamMembers);
