@@ -39,6 +39,7 @@ jobs:
 
       # create dacpac using MSBUILD executable
       - name: create dacpac
+        working-directory: ./CM.WeeklyTeamReport
         run: msbuild src/CM.WeeklyTeamReport.DB/CM.WeeklyTeamReport.DB.sqlproj /p:Configuration=Release
       # Publish an artifact
       - uses: actions/upload-artifact@v2
