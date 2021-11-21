@@ -39,10 +39,9 @@ jobs:
 
       # create dacpac using MSBUILD executable
       - name: create dacpac
-        working-directory: ./CM.WeeklyTeamReport
-        run: msbuild src/CM.WeeklyTeamReport.DB/CM.WeeklyTeamReport.DB.sqlproj /p:Configuration=Release
+        run: msbuild CM.WeeklyTeamReport/src/CM.WeeklyTeamReport.Domain/CM.WeeklyTeamReport.Domain.DB/CM.WeeklyTeamReport.Domain.DB.sqlproj /p:Configuration=Release
       # Publish an artifact
       - uses: actions/upload-artifact@v2
         with:
           name: DACPAC
-          path: ${{ github.workspace }}/src/CM.WeeklyTeamReport.DB/bin/Release/
+          path: ${{ github.workspace }}/CM.WeeklyTeamReport/src/CM.WeeklyTeamReport.Domain/CM.WeeklyTeamReport.Domain.DB/bin/Release/
