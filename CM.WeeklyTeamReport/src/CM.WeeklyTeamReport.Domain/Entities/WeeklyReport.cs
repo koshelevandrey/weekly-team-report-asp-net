@@ -18,15 +18,21 @@ namespace CM.WeeklyTeamReport.Domain
         public string WeeklyLowText { get; set; }
         public string AnythingElseText { get; set; }
 
-        public WeeklyReport(DateTime dateStart, DateTime dateEnd, WeeklyStatus morale,
-            WeeklyStatus stress, WeeklyStatus workload, string weeklyHighText,
-            string weeklyLowText, string anythingElseText)
+        public WeeklyReport(int weeklyReportId, int teamMemberId, DateTime dateStart, DateTime dateEnd,
+            WeeklyStatus morale, WeeklyStatus stress, WeeklyStatus workload,
+            string moraleComment, string stressComment, string workloadComment,
+            string weeklyHighText, string weeklyLowText, string anythingElseText)
         {
+            WeeklyReportId = weeklyReportId;
+            TeamMemberId = teamMemberId;
             DateStart = dateStart;
             DateEnd = dateEnd;
             Morale = morale;
             Stress = stress;
             Workload = workload;
+            MoraleComment = moraleComment;
+            StressComment = stressComment;
+            WorkloadComment = workloadComment;
             WeeklyHighText = weeklyHighText;
             WeeklyLowText = weeklyLowText;
             AnythingElseText = anythingElseText;

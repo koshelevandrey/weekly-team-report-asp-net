@@ -19,8 +19,7 @@ namespace CM.WeeklyTeamReport.Domain.IntegrationTests
         public void ShouldBeAbleToCreateTeamMemberAndSaveItToDatabase()
         {
             var teamMemberRepository = new TeamMemberRepository();
-            var teamMember = new TeamMember("Petr", "Smirnov", "Producer", "invite.com", null, null, null)
-            { CompanyId = 2 };
+            var teamMember = new TeamMember(1, 2, "Petr", "Smirnov", "Producer", "invite.com");
             teamMember = teamMemberRepository.Create(teamMember);
 
             Assert.NotNull(teamMember);
@@ -49,8 +48,7 @@ namespace CM.WeeklyTeamReport.Domain.IntegrationTests
         public void ShouldBeAbleToUpdateTeamMemberInDatabase()
         {
             var teamMemberRepository = new TeamMemberRepository();
-            teamMemberRepository.Update(new TeamMember("Nikita", "Kupcov", "Controller", "invite2.com", null, null, null)
-            { TeamMemberId = 5, CompanyId = 2 });
+            teamMemberRepository.Update(new TeamMember(5, 2, "Nikita", "Kupcov", "Controller", "invite2.com"));
 
             var teamMember = teamMemberRepository.Read(5);
             Assert.NotNull(teamMember);

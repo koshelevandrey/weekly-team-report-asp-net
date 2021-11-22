@@ -20,10 +20,9 @@ namespace CM.WeeklyTeamReport.Domain.IntegrationTests
         public void ShouldBeAbleToCreateWeeklyReportAndSaveItToDatabase()
         {
             var weeklyReportRepository = new WeeklyReportRepository();
-            var weeklyReport = new WeeklyReport(new DateTime(2021, 11, 07), new DateTime(2021, 11, 13), WeeklyStatus.Good,
-                WeeklyStatus.Okay, WeeklyStatus.VeryLow, "Some weekly high text", "Some weekly low text" , "Some else text")
-            { TeamMemberId = 10, MoraleComment = "some morale comment", StressComment = "some stress comment",
-              WorkloadComment = "some workload comment"};
+            var weeklyReport = new WeeklyReport(1, 10, new DateTime(2021, 11, 07), new DateTime(2021, 11, 13), WeeklyStatus.Good,
+                WeeklyStatus.Okay, WeeklyStatus.VeryLow, "some morale comment", "some stress comment", "some workload comment",
+                "Some weekly high text", "Some weekly low text", "Some else text");
             weeklyReport = weeklyReportRepository.Create(weeklyReport);
 
             Assert.NotNull(weeklyReportRepository);
@@ -36,11 +35,11 @@ namespace CM.WeeklyTeamReport.Domain.IntegrationTests
         public void ShouldBeAbleToReadWeeklyReportFromDatabase()
         {
             var weeklyReportRepository = new WeeklyReportRepository();
-            var weeklyReport = weeklyReportRepository.Read(8);
+            var weeklyReport = weeklyReportRepository.Read(11);
 
             Assert.NotNull(weeklyReport);
-            Assert.Equal(8, weeklyReport.WeeklyReportId);
-            Assert.Equal(10, weeklyReport.TeamMemberId);
+            Assert.Equal(11, weeklyReport.WeeklyReportId);
+            Assert.Equal(3, weeklyReport.TeamMemberId);
             Assert.Equal(new DateTime(2021, 11, 07), weeklyReport.DateStart);
             Assert.Equal(new DateTime(2021, 11, 13), weeklyReport.DateEnd);
             Assert.Equal(WeeklyStatus.Good, weeklyReport.Morale);
@@ -58,15 +57,10 @@ namespace CM.WeeklyTeamReport.Domain.IntegrationTests
         public void ShouldBeAbleToUpdateWeeklyReportInDatabase()
         {
             var weeklyReportRepository = new WeeklyReportRepository();
-            var weeklyReport = new WeeklyReport(new DateTime(2021, 10, 07), new DateTime(2021, 10, 13), WeeklyStatus.Okay,
-                WeeklyStatus.Great, WeeklyStatus.Good, "Some weekly high text 2", "Some weekly low text 2", "Some else text 2")
-            {
-                WeeklyReportId = 10,
-                TeamMemberId = 11,
-                MoraleComment = "some morale comment 2",
-                StressComment = "some stress comment 2",
-                WorkloadComment = "some workload comment 2"
-            };
+            var weeklyReport = new WeeklyReport(10, 11, new DateTime(2021, 10, 07), new DateTime(2021, 10, 13),
+                WeeklyStatus.Okay, WeeklyStatus.Great, WeeklyStatus.Good,
+                "some morale comment 2", "some stress comment 2", "some workload comment 2",
+                "Some weekly high text 2", "Some weekly low text 2", "Some else text 2");
             weeklyReportRepository.Update(weeklyReport);
 
             weeklyReport = weeklyReportRepository.Read(10);

@@ -16,16 +16,11 @@ namespace CM.WeeklyTeamReport.Domain.Repositories
 
         private static WeeklyReport MapWeeklyReport(SqlDataReader reader)
         {
-            return new WeeklyReport((DateTime)reader["DateStart"], (DateTime)reader["DateEnd"],
+            return new WeeklyReport((int)reader["WeeklyReportId"], (int)reader["TeamMemberId"],
+                (DateTime)reader["DateStart"], (DateTime)reader["DateEnd"],
                 (WeeklyStatus)reader["Morale"], (WeeklyStatus)reader["Stress"], (WeeklyStatus)reader["Workload"],
-                reader["WeeklyHighText"].ToString(), reader["WeeklyLowText"].ToString(), reader["AnythingElseText"].ToString())
-            {
-                WeeklyReportId = (int)reader["WeeklyReportId"],
-                TeamMemberId = (int)reader["TeamMemberId"],
-                MoraleComment = reader["MoraleComment"].ToString(),
-                StressComment = reader["StressComment"].ToString(),
-                WorkloadComment = reader["WorkloadComment"].ToString()
-            };
+                reader["MoraleComment"].ToString(), reader["StressComment"].ToString(), reader["WorkloadComment"].ToString(),
+                reader["WeeklyHighText"].ToString(), reader["WeeklyLowText"].ToString(), reader["AnythingElseText"].ToString());
         }
         public WeeklyReport Create(WeeklyReport weeklyReport)
         {

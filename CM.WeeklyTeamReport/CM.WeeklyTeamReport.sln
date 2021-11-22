@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CM.WeeklyTeamReport.Domain.
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CM.WeeklyTeamReport.Domain.DB", "src\CM.WeeklyTeamReport.Domain\CM.WeeklyTeamReport.Domain.DB\CM.WeeklyTeamReport.Domain.DB.sqlproj", "{D126F5E6-DEE9-4371-9B1F-7D6C474AF65F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.WeeklyTeamReport.WebApp", "src\CM.WeeklyTeamReport.WebApp\CM.WeeklyTeamReport.WebApp.csproj", "{888821F4-D383-4282-99AE-4B6A841717C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D126F5E6-DEE9-4371-9B1F-7D6C474AF65F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{D126F5E6-DEE9-4371-9B1F-7D6C474AF65F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D126F5E6-DEE9-4371-9B1F-7D6C474AF65F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{888821F4-D383-4282-99AE-4B6A841717C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{888821F4-D383-4282-99AE-4B6A841717C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{888821F4-D383-4282-99AE-4B6A841717C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{888821F4-D383-4282-99AE-4B6A841717C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

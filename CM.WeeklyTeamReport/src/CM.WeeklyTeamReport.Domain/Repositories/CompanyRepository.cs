@@ -16,10 +16,8 @@ namespace CM.WeeklyTeamReport.Domain.Repositories
 
         private static Company MapCompany(SqlDataReader reader)
         {
-            return new Company(reader["CompanyName"].ToString(), (DateTime)reader["JoinedDate"], null)
-            {
-                CompanyId = (int)reader["CompanyId"]
-            };
+            return new Company((int)reader["CompanyId"], reader["CompanyName"].ToString(),
+                (DateTime)reader["JoinedDate"]);
         }
 
         public Company Create(Company company)

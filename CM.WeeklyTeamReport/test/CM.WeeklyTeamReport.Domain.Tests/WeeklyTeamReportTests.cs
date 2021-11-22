@@ -9,21 +9,22 @@ namespace CM.WeeklyTeamReport.Domain.Tests
         [Fact]
         public void ShouldBeAbleToCreateWeeklyReport()
         {
+            int weeklyReportId = 1;
+            int teamMemberId = 2;
             DateTime dateStart = new DateTime(2020, 2, 16);
             DateTime dateEnd = new DateTime(2020, 2, 22);
             WeeklyStatus morale = WeeklyStatus.Great;
             WeeklyStatus stress = WeeklyStatus.Good;
             WeeklyStatus workload = WeeklyStatus.Okay;
+            string moraleComment = "1";
+            string stressComment = "2";
+            string workloadComment = "3";
             string weeklyHighText = "Identified our goal and priorities";
             string weeklyLowText = "Cold weather";
             string anythingElseText = "Looking forward to launching our first product";
-            WeeklyReport weeklyReport = new WeeklyReport(dateStart, dateEnd, morale,
-                stress, workload, weeklyHighText, weeklyLowText, anythingElseText);
-            weeklyReport.WeeklyReportId = 1;
-            weeklyReport.TeamMemberId = 2;
-            weeklyReport.MoraleComment = "1";
-            weeklyReport.StressComment = "2";
-            weeklyReport.WorkloadComment = "3";
+            WeeklyReport weeklyReport = new WeeklyReport(weeklyReportId, teamMemberId, dateStart, dateEnd, morale,
+                stress, workload, moraleComment, stressComment, workloadComment,
+                weeklyHighText, weeklyLowText, anythingElseText);
 
             Assert.NotNull(weeklyReport);
             Assert.Equal(1, weeklyReport.WeeklyReportId);
@@ -51,10 +52,7 @@ namespace CM.WeeklyTeamReport.Domain.Tests
             List<WeeklyReport> reports = new List<WeeklyReport>();
             List<TeamMember> reportsTo = new List<TeamMember>();
             List<TeamMember> getReportsFrom = new List<TeamMember>();
-            TeamMember teamMember = new TeamMember(firstName, lastName, title, inviteLink, reports,
-                reportsTo, getReportsFrom);
-            teamMember.TeamMemberId = 2;
-            teamMember.CompanyId = 1;
+            TeamMember teamMember = new TeamMember(2, 1, firstName, lastName, title, inviteLink);
 
             Assert.NotNull(teamMember);
             Assert.Equal(2, teamMember.TeamMemberId);
@@ -63,9 +61,6 @@ namespace CM.WeeklyTeamReport.Domain.Tests
             Assert.Equal("Petrov", teamMember.LastName);
             Assert.Equal("Engineer", teamMember.Title);
             Assert.Equal("www.example.com", teamMember.InviteLink);
-            Assert.Equal(reports, teamMember.Reports);
-            Assert.Equal(reportsTo, teamMember.ReportsTo);
-            Assert.Equal(getReportsFrom, teamMember.GetReportsFrom);
         }
 
         [Fact]
@@ -73,15 +68,12 @@ namespace CM.WeeklyTeamReport.Domain.Tests
         {
             string name = "ANKO";
             DateTime joinedDate = new DateTime(2020, 1, 2);
-            List<TeamMember> teamMembers = new List<TeamMember>();
-            Company company = new Company(name, joinedDate, teamMembers);
-            company.CompanyId = 1;
+            Company company = new Company(1, name, joinedDate);
 
             Assert.NotNull(company);
             Assert.Equal(1, company.CompanyId);
             Assert.Equal("ANKO", company.Name);
             Assert.Equal(new DateTime(2020, 1, 2), company.JoinedDate);
-            Assert.Equal(teamMembers, company.TeamMembers);
         }
     }
 }

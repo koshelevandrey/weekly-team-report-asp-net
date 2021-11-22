@@ -19,7 +19,7 @@ namespace CM.WeeklyTeamReport.Domain.IntegrationTests
         public void ShouldBeAbleToCreateCompanyAndSaveItToDatabase()
         {
             var companyRepository = new CompanyRepository();
-            var company = new Company("ANKO", new DateTime(2010, 11, 21), new List<TeamMember>());
+            var company = new Company(1, "ANKO", new DateTime(2010, 11, 21));
             company = companyRepository.Create(company);
 
             Assert.NotNull(company);
@@ -44,7 +44,7 @@ namespace CM.WeeklyTeamReport.Domain.IntegrationTests
         public void ShouldBeAbleToUpdateCompanyInDatabase()
         {
             var companyRepository = new CompanyRepository();
-            companyRepository.Update(new Company("Magnit", new DateTime(2008, 04, 10), null) { CompanyId = 3 });
+            companyRepository.Update(new Company(3, "Magnit", new DateTime(2008, 04, 10)));
 
             var company = companyRepository.Read(3);
             Assert.NotNull(company);

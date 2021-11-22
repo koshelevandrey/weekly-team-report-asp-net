@@ -16,12 +16,9 @@ namespace CM.WeeklyTeamReport.Domain.Repositories
 
         private static TeamMember MapTeamMember(SqlDataReader reader)
         {
-            return new TeamMember(reader["FirstName"].ToString(), reader["LastName"].ToString(), reader["Title"].ToString(),
-                reader["InviteLink"].ToString(), null, null, null)
-            {
-                TeamMemberId = (int)reader["TeamMemberId"],
-                CompanyId = (int)reader["CompanyId"]
-            };
+            return new TeamMember((int)reader["TeamMemberId"], (int)reader["CompanyId"],
+                reader["FirstName"].ToString(), reader["LastName"].ToString(), reader["Title"].ToString(),
+                reader["InviteLink"].ToString());
         }
 
         public TeamMember Create(TeamMember teamMember)
