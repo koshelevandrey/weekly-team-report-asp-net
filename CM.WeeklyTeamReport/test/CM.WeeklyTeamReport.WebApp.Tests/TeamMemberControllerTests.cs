@@ -30,7 +30,7 @@ namespace CM.WeeklyTeamReport.WebApp.Tests
 
             var controller = fixture.GetTeamMemberController();
 
-            var teamMembers = controller.Get(1);
+            var teamMembers = controller.GetAllByCompanyId(1);
 
             teamMembers.Should().NotBeNull();
             teamMembers.Should().HaveCount(1);

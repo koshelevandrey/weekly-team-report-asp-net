@@ -33,7 +33,7 @@ namespace CM.WeeklyTeamReport.WebApp.Tests
 
             var controller = fixture.GetWeeklyReportController();
 
-            var weeklyReports = controller.Get(1);
+            var weeklyReports = controller.GetAllByMember(1);
 
             weeklyReports.Should().NotBeNull();
             weeklyReports.Should().HaveCount(1);
