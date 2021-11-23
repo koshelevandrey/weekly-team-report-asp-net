@@ -33,24 +33,21 @@ namespace CM.WeeklyTeamReport.WebApp.Controllers
         }
 
         [HttpPost]
-        public void Post(int companyId, [BindRequired] string firstName, [BindRequired] string lastName,
-            [BindRequired] string title, [BindRequired] string inviteLink)
+        public void Post([FromQuery] TeamMember teamMember)
         {
-            _repository.Create(new TeamMember(-1, companyId, firstName, lastName, title, inviteLink));
+            _repository.Create(teamMember);
         }
 
         [HttpPut]
-        public void Put([BindRequired] int teamMemberId, [BindRequired] int companyId,
-            [BindRequired] string firstName, [BindRequired] string lastName,
-            [BindRequired] string title, [BindRequired] string inviteLink)
+        public void Put([FromQuery] TeamMember teamMember)
         {
-            _repository.Update(new TeamMember(teamMemberId, companyId, firstName, lastName, title, inviteLink));
+            _repository.Update(teamMember);
         }
 
-        [HttpDelete("{teamMemberId}")]
-        public void Delete(int teamMemberId)
+        [HttpDelete("{memberId}")]
+        public void Delete(int memberId)
         {
-            _repository.Delete(teamMemberId);
+            _repository.Delete(memberId);
         }
     }
 }

@@ -15,5 +15,7 @@ namespace CM.WeeklyTeamReport.Domain
             Name = name;
             JoinedDate = joinedDate;
         }
+
+        public Company() { }
     }
 }

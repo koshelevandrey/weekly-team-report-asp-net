@@ -37,5 +37,7 @@ namespace CM.WeeklyTeamReport.Domain
             WeeklyLowText = weeklyLowText;
             AnythingElseText = anythingElseText;
         }
+
+        public WeeklyReport() { }
     }
 }

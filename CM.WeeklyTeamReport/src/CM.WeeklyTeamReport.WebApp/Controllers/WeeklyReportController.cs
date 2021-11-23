@@ -33,32 +33,15 @@ namespace CM.WeeklyTeamReport.WebApp.Controllers
         }
 
         [HttpPost]
-        public void Post([BindRequired] int memberId, [BindRequired] DateTime dateStart,
-            [BindRequired] DateTime dateEnd, [BindRequired] int morale, [BindRequired] int stress,
-            [BindRequired] int workload, [BindRequired] string moraleComment,
-            [BindRequired] string stressComment, [BindRequired] string workloadComment,
-            [BindRequired] string weeklyHighText, [BindRequired] string weeklyLowText,
-            [BindRequired] string anythingElseText)
+        public void Post([FromQuery] WeeklyReport weeklyReport)
         {
-            _repository.Create(new WeeklyReport(-1, memberId, dateStart, dateEnd,
-                (WeeklyStatus)morale, (WeeklyStatus)stress, (WeeklyStatus)workload,
-                moraleComment, stressComment, workloadComment, weeklyHighText,
-                weeklyLowText, anythingElseText));
+            _repository.Create(weeklyReport);
         }
 
         [HttpPut]
-        public void Put([BindRequired] int reportId, int memberId,
-            [BindRequired] DateTime dateStart, [BindRequired] DateTime dateEnd,
-            [BindRequired] int morale, [BindRequired] int stress,
-            [BindRequired] int workload, [BindRequired] string moraleComment,
-            [BindRequired] string stressComment, [BindRequired] string workloadComment,
-            [BindRequired] string weeklyHighText, [BindRequired] string weeklyLowText,
-            [BindRequired] string anythingElseText)
+        public void Put([FromQuery] WeeklyReport weeklyReport)
         {
-            _repository.Update(new WeeklyReport(reportId, memberId, dateStart, dateEnd,
-                (WeeklyStatus)morale, (WeeklyStatus)stress, (WeeklyStatus)workload,
-                moraleComment, stressComment, workloadComment, weeklyHighText,
-                weeklyLowText, anythingElseText));
+            _repository.Update(weeklyReport);
         }
 
         [HttpDelete("{reportId}")]

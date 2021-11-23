@@ -33,16 +33,15 @@ namespace CM.WeeklyTeamReport.WebApp.Controllers
         }
 
         [HttpPost]
-        public void Post([BindRequired] string companyName, [BindRequired] DateTime joinedDate)
+        public void Post([FromQuery] Company company)
         {
-            _repository.Create(new Company(-1, companyName, joinedDate));
+            _repository.Create(company);
         }
 
         [HttpPut]
-        public void Put([BindRequired] int companyId, [BindRequired] string companyName,
-            [BindRequired] DateTime joinedDate)
+        public void Put([FromQuery] Company company)
         {
-            _repository.Update(new Company(companyId, companyName, joinedDate));
+            _repository.Update(company);
         }
 
         [HttpDelete("{companyId}")]

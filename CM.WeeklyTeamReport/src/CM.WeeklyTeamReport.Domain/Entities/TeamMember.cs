@@ -22,5 +22,7 @@ namespace CM.WeeklyTeamReport.Domain
             Title = title;
             InviteLink = inviteLink;
         }
+
+        public TeamMember() { }
     }
 }

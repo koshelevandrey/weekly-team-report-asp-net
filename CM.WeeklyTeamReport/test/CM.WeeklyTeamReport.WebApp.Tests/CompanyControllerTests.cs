@@ -53,15 +53,15 @@ namespace CM.WeeklyTeamReport.WebApp.Tests
         public void ShouldCreateCompany()
         {
             var fixture = new CompanyControllerFixture();
+            var company = new Company(-1, "Pyaterochka", new DateTime(2015, 07, 29));
             fixture.CompanyRepository
-                .Setup(x => x.Create(new Company(-1, "Pyaterochka", new DateTime(2015, 07, 29))));
+                .Setup(x => x.Create(company));
 
             var controller = fixture.GetCompanyController();
-            controller.Post("Pyaterochka", new DateTime(2015, 07, 29));
+            controller.Post(company);
 
-            /*fixture.CompanyRepository.Verify(x => 
-            x.Create(new Company(-1, "Pyaterochka", new DateTime(2015, 07, 29))),
-            Times.Once);*/
+            fixture.CompanyRepository.Verify(x => x.Create(company),
+            Times.Once);
         }
     }
 
