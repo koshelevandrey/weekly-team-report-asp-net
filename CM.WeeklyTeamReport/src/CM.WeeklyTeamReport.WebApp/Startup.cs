@@ -29,6 +29,8 @@ namespace CM.WeeklyTeamReport.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IRepository<Company>, CompanyRepository>();
+            services.AddTransient<IRepository<TeamMember>, TeamMemberRepository>();
+            services.AddTransient<IRepository<WeeklyReport>, WeeklyReportRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

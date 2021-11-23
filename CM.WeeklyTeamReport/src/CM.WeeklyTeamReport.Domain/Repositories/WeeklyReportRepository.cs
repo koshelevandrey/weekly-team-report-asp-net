@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace CM.WeeklyTeamReport.Domain.Repositories
@@ -217,6 +218,35 @@ namespace CM.WeeklyTeamReport.Domain.Repositories
 
                 command.ExecuteNonQuery();
             }
+        }
+
+        public List<WeeklyReport> ReadAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<WeeklyReport> ReadAllByParentId(int teamMemberId)
+        {
+            List<WeeklyReport> weeklyReports = new List<WeeklyReport>();
+            using (var connection = GetSqlConnection(CONNECTION_STRING))
+            {
+                var command = new SqlCommand("SELECT * FROM WeeklyReports " +
+                                             "WHERE TeamMemberId = @TeamMemberId",
+                                             connection);
+
+                SqlParameter TeamMemberId = new SqlParameter("@TeamMemberId", System.Data.SqlDbType.Int)
+                {
+                    Value = teamMemberId
+                };
+                command.Parameters.Add(TeamMemberId);
+
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    weeklyReports.Add(MapWeeklyReport(reader));
+                }
+            }
+            return weeklyReports;
         }
     }
 }

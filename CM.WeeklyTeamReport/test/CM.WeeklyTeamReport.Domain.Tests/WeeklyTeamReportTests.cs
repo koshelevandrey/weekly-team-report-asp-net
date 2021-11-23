@@ -66,9 +66,10 @@ namespace CM.WeeklyTeamReport.Domain.Tests
         [Fact]
         public void ShouldBeAbleToCreateCompany()
         {
+            int companyId = 1;
             string name = "ANKO";
             DateTime joinedDate = new DateTime(2020, 1, 2);
-            Company company = new Company(1, name, joinedDate);
+            Company company = new Company(companyId, name, joinedDate);
 
             Assert.NotNull(company);
             Assert.Equal(1, company.CompanyId);

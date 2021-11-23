@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace CM.WeeklyTeamReport.Domain.Repositories
@@ -119,6 +120,27 @@ namespace CM.WeeklyTeamReport.Domain.Repositories
 
                 command.ExecuteNonQuery();
             }
+        }
+
+        public List<Company> ReadAll()
+        {
+            List<Company> companies = new List<Company>();
+            using (var connection = GetSqlConnection(CONNECTION_STRING))
+            {
+                var command = new SqlCommand("SELECT * FROM Companies", connection);
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    companies.Add(MapCompany(reader));
+                }
+            }
+
+            return companies;
+        }
+
+        public List<Company> ReadAllByParentId(int entityId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

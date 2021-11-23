@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace CM.WeeklyTeamReport.WebApp.Controllers
 {
-    [Route("api/companies")]
-    public class CompanyController : ControllerBase
+    [Route("api/companies/{companyId}/members")]
+    public class TeamMemberController : ControllerBase
     {
-        private readonly IRepository<Company> _repository;
+        private readonly IRepository<TeamMember> _repository;
 
-        public CompanyController(IRepository<Company> repository)
+        public TeamMemberController(IRepository<TeamMember> repository)
         {
             _repository = repository;
         }
 
         [HttpGet]
-        public List<Company> Get()
+        public List<TeamMember> Get(int companyId)
         {
-            return _repository.ReadAll();
+            return _repository.ReadAllByParentId(companyId);
         }
     }
 }
