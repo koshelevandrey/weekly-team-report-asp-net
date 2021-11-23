@@ -50,7 +50,7 @@ namespace CM.WeeklyTeamReport.WebApp.Tests
         }
 
         [Fact]
-        public void ShouldCreateCompany()
+        public void ShouldAddCompany()
         {
             var fixture = new CompanyControllerFixture();
             var company = new Company(-1, "Pyaterochka", new DateTime(2015, 07, 29));
@@ -61,6 +61,36 @@ namespace CM.WeeklyTeamReport.WebApp.Tests
             controller.Post(company);
 
             fixture.CompanyRepository.Verify(x => x.Create(company),
+            Times.Once);
+        }
+
+        [Fact]
+        public void ShouldUpdateCompany()
+        {
+            var fixture = new CompanyControllerFixture();
+            var company = new Company(23, "Pyaterochka", new DateTime(2015, 07, 29));
+            fixture.CompanyRepository
+                .Setup(x => x.Update(company));
+
+            var controller = fixture.GetCompanyController();
+            controller.Put(company);
+
+            fixture.CompanyRepository.Verify(x => x.Update(company),
+            Times.Once);
+        }
+
+        [Fact]
+        public void ShouldDeleteCompany()
+        {
+            var fixture = new CompanyControllerFixture();
+            var companyId = 25;
+            fixture.CompanyRepository
+                .Setup(x => x.Delete(companyId));
+
+            var controller = fixture.GetCompanyController();
+            controller.Delete(companyId);
+
+            fixture.CompanyRepository.Verify(x => x.Delete(companyId),
             Times.Once);
         }
     }

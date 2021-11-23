@@ -40,6 +40,68 @@ namespace CM.WeeklyTeamReport.WebApp.Tests
 
             fixture.WeeklyReportRepository.Verify(x => x.ReadAllByParentId(1), Times.Once);
         }
+
+        [Fact]
+        public void ShouldReturnWeeklyReport()
+        {
+            var fixture = new WeeklyReportControllerFixture();
+            var weeklyReport = new WeeklyReport(10, 11, new DateTime(2021, 10, 07), new DateTime(2021, 10, 13),
+                                     WeeklyStatus.Okay, WeeklyStatus.Great, WeeklyStatus.Good,
+                                     "some morale comment 2", "some stress comment 2", "some workload comment 2",
+                                     "Some weekly high text 2", "Some weekly low text 2", "Some else text 2");
+            fixture.WeeklyReportRepository.Setup(x => x.Read(1))
+                .Returns(weeklyReport);
+
+            var controller = fixture.GetWeeklyReportController();
+            weeklyReport = controller.Get(1);
+
+            fixture.WeeklyReportRepository.Verify(x => x.Read(1), Times.Once);
+        }
+
+        [Fact]
+        public void ShouldAddWeeklyReport()
+        {
+            var fixture = new WeeklyReportControllerFixture();
+            var weeklyReport = new WeeklyReport(10, 11, new DateTime(2021, 10, 07), new DateTime(2021, 10, 13),
+                                     WeeklyStatus.Okay, WeeklyStatus.Great, WeeklyStatus.Good,
+                                     "some morale comment 2", "some stress comment 2", "some workload comment 2",
+                                     "Some weekly high text 2", "Some weekly low text 2", "Some else text 2");
+            fixture.WeeklyReportRepository.Setup(x => x.Create(weeklyReport));
+
+            var controller = fixture.GetWeeklyReportController();
+            controller.Post(weeklyReport);
+
+            fixture.WeeklyReportRepository.Verify(x => x.Create(weeklyReport), Times.Once);
+        }
+
+        [Fact]
+        public void ShouldUpdateWeeklyReport()
+        {
+            var fixture = new WeeklyReportControllerFixture();
+            var weeklyReport = new WeeklyReport(10, 11, new DateTime(2021, 10, 07), new DateTime(2021, 10, 13),
+                                     WeeklyStatus.Okay, WeeklyStatus.Great, WeeklyStatus.Good,
+                                     "some morale comment 2", "some stress comment 2", "some workload comment 2",
+                                     "Some weekly high text 2", "Some weekly low text 2", "Some else text 2");
+            fixture.WeeklyReportRepository.Setup(x => x.Update(weeklyReport));
+
+            var controller = fixture.GetWeeklyReportController();
+            controller.Put(weeklyReport);
+
+            fixture.WeeklyReportRepository.Verify(x => x.Update(weeklyReport), Times.Once);
+        }
+
+        [Fact]
+        public void ShouldDeleteWeeklyReport()
+        {
+            var fixture = new WeeklyReportControllerFixture();
+            var weeklyReportId = 5;
+            fixture.WeeklyReportRepository.Setup(x => x.Delete(weeklyReportId));
+
+            var controller = fixture.GetWeeklyReportController();
+            controller.Delete(weeklyReportId);
+
+            fixture.WeeklyReportRepository.Verify(x => x.Delete(weeklyReportId), Times.Once);
+        }
     }
 
     public class WeeklyReportControllerFixture
