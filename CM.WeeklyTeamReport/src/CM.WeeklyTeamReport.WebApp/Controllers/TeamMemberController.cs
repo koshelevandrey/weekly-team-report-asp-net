@@ -20,34 +20,60 @@ namespace CM.WeeklyTeamReport.WebApp.Controllers
         }
 
         [HttpGet("{memberId}")]
-        public TeamMember Get(int memberId)
+        public ActionResult Get(int memberId)
         {
             var result = _repository.Read(memberId);
-            return result;
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
 
         [HttpGet]
-        public List<TeamMember> GetAllByCompanyId(int companyId)
+        public ActionResult GetAllByCompanyId(int companyId)
         {
-            return _repository.ReadAllByParentId(companyId);
+            var result = _repository.ReadAllByParentId(companyId);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
 
         [HttpPost]
-        public void Post([FromQuery] TeamMember teamMember)
+        public ActionResult Post([FromQuery] TeamMember teamMember)
         {
-            _repository.Create(teamMember);
+            var result = _repository.Create(teamMember);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
 
         [HttpPut]
-        public void Put([FromQuery] TeamMember teamMember)
+        public ActionResult Put([FromQuery] TeamMember teamMember)
         {
+            var result = _repository.Read(teamMember.TeamMemberId);
+            if (result == null)
+            {
+                return NotFound();
+            }
             _repository.Update(teamMember);
+            return Ok();
         }
 
         [HttpDelete("{memberId}")]
-        public void Delete(int memberId)
+        public ActionResult Delete(int memberId)
         {
+            var result = _repository.Read(memberId);
+            if (result == null)
+            {
+                return NotFound();
+            }
             _repository.Delete(memberId);
+            return Ok();
         }
     }
 }

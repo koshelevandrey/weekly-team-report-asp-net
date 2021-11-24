@@ -42,21 +42,40 @@ namespace CM.WeeklyTeamReport.WebApp.Controllers
         }
 
         [HttpPost]
-        public void Post([FromQuery] Company company)
+        public IActionResult Post([FromQuery] Company company)
         {
-            _repository.Create(company);
+            var createdCompany = _repository.Create(company);
+            if (createdCompany == null)
+            {
+                return BadRequest();
+            }
+            return Ok(createdCompany);
         }
 
         [HttpPut]
-        public void Put([FromQuery] Company company)
+        public IActionResult Put([FromQuery] Company company)
         {
+            var readCompany = _repository.Read(company.CompanyId);
+            if (readCompany == null)
+            {
+                return NotFound();
+            }
+
             _repository.Update(company);
+            return Ok();
         }
 
         [HttpDelete("{companyId}")]
-        public void Delete(int companyId)
+        public IActionResult Delete(int companyId)
         {
+            var readCompany = _repository.Read(companyId);
+            if (readCompany == null)
+            {
+                return NotFound();
+            }
+
             _repository.Delete(companyId);
+            return Ok();
         }
     }
 }

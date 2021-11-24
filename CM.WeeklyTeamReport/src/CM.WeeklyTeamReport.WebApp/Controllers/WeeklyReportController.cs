@@ -20,34 +20,60 @@ namespace CM.WeeklyTeamReport.WebApp.Controllers
         }
 
         [HttpGet("{reportId}")]
-        public WeeklyReport Get(int reportId)
+        public ActionResult Get(int reportId)
         {
             var result = _repository.Read(reportId);
-            return result;
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
 
         [HttpGet]
-        public List<WeeklyReport> GetAllByMember(int memberId)
+        public ActionResult GetAllByMember(int memberId)
         {
-            return _repository.ReadAllByParentId(memberId);
+            var result = _repository.ReadAllByParentId(memberId);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
 
         [HttpPost]
-        public void Post([FromQuery] WeeklyReport weeklyReport)
+        public ActionResult Post([FromQuery] WeeklyReport weeklyReport)
         {
-            _repository.Create(weeklyReport);
+            var result = _repository.Create(weeklyReport);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
         }
 
         [HttpPut]
-        public void Put([FromQuery] WeeklyReport weeklyReport)
+        public ActionResult Put([FromQuery] WeeklyReport weeklyReport)
         {
+            var result = _repository.Read(weeklyReport.WeeklyReportId);
+            if (result == null)
+            {
+                return NotFound();
+            }
             _repository.Update(weeklyReport);
+            return Ok();
         }
 
         [HttpDelete("{reportId}")]
-        public void Delete(int reportId)
+        public ActionResult Delete(int reportId)
         {
+            var result = _repository.Read(reportId);
+            if (result == null)
+            {
+                return NotFound();
+            }
             _repository.Delete(reportId);
+            return Ok();
         }
     }
 }

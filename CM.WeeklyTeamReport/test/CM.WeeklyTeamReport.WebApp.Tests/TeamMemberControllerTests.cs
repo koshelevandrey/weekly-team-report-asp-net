@@ -2,6 +2,7 @@
 using CM.WeeklyTeamReport.Domain.Repositories;
 using CM.WeeklyTeamReport.WebApp.Controllers;
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -30,11 +31,25 @@ namespace CM.WeeklyTeamReport.WebApp.Tests
 
             var controller = fixture.GetTeamMemberController();
 
-            var teamMembers = controller.GetAllByCompanyId(1);
+            var actionResult = controller.GetAllByCompanyId(1);
+            actionResult.Should().BeOfType<OkObjectResult>();
 
+            var teamMembers = (List<TeamMember>)((actionResult as ObjectResult).Value);
             teamMembers.Should().NotBeNull();
             teamMembers.Should().HaveCount(1);
+            fixture.TeamMemberRepository.Verify(x => x.ReadAllByParentId(1), Times.Once);
+        }
 
+        [Fact]
+        public void ShouldReturnNotFoundOnGetAllTeamMembers()
+        {
+            var fixture = new TeamMemberControllerFixture();
+            fixture.TeamMemberRepository.Setup(x => x.ReadAllByParentId(1));
+
+            var controller = fixture.GetTeamMemberController();
+
+            var actionResult = controller.GetAllByCompanyId(1);
+            actionResult.Should().BeOfType<NotFoundResult>();
             fixture.TeamMemberRepository.Verify(x => x.ReadAllByParentId(1), Times.Once);
         }
 
@@ -47,9 +62,24 @@ namespace CM.WeeklyTeamReport.WebApp.Tests
 
             var controller = fixture.GetTeamMemberController();
 
-            var teamMembers = controller.Get(1);
+            var actionResult = controller.Get(1);
+            actionResult.Should().BeOfType<OkObjectResult>();
 
-            teamMembers.Should().NotBeNull();
+            var teamMember = (TeamMember)((actionResult as ObjectResult).Value);
+            teamMember.Should().NotBeNull();
+            fixture.TeamMemberRepository.Verify(x => x.Read(1), Times.Once);
+        }
+
+        [Fact]
+        public void ShouldReturnNotFoundOnGetTeamMember()
+        {
+            var fixture = new TeamMemberControllerFixture();
+            fixture.TeamMemberRepository.Setup(x => x.Read(1));
+
+            var controller = fixture.GetTeamMemberController();
+
+            var actionResult = controller.Get(1);
+            actionResult.Should().BeOfType<NotFoundResult>();
             fixture.TeamMemberRepository.Verify(x => x.Read(1), Times.Once);
         }
 
@@ -58,11 +88,27 @@ namespace CM.WeeklyTeamReport.WebApp.Tests
         {
             var fixture = new TeamMemberControllerFixture();
             TeamMember teamMember = new TeamMember(1, 1, "Ivan", "Petrov", "CEO", "invite.com");
-            fixture.TeamMemberRepository.Setup(x => x.Create(teamMember));
+            fixture.TeamMemberRepository
+                .Setup(x => x.Create(teamMember))
+                .Returns(teamMember);
 
             var controller = fixture.GetTeamMemberController();
-            controller.Post(teamMember);
+            var actionResult = controller.Post(teamMember);
+            actionResult.Should().BeOfType<OkObjectResult>();
+            fixture.TeamMemberRepository.Verify(x => x.Create(teamMember), Times.Once);
+        }
 
+        [Fact]
+        public void ShouldReturnBadRequestOnAddTeamMember()
+        {
+            var fixture = new TeamMemberControllerFixture();
+            TeamMember teamMember = new TeamMember(1, 1, "Ivan", "Petrov", "CEO", "invite.com");
+            fixture.TeamMemberRepository
+                .Setup(x => x.Create(teamMember));
+
+            var controller = fixture.GetTeamMemberController();
+            var actionResult = controller.Post(teamMember);
+            actionResult.Should().BeOfType<BadRequestResult>();
             fixture.TeamMemberRepository.Verify(x => x.Create(teamMember), Times.Once);
         }
 
@@ -71,25 +117,65 @@ namespace CM.WeeklyTeamReport.WebApp.Tests
         {
             var fixture = new TeamMemberControllerFixture();
             TeamMember teamMember = new TeamMember(1, 1, "Ivan", "Petrov", "CEO", "invite.com");
-            fixture.TeamMemberRepository.Setup(x => x.Update(teamMember));
+            fixture.TeamMemberRepository
+                .Setup(x => x.Read(teamMember.TeamMemberId))
+                .Returns(teamMember);
+            fixture.TeamMemberRepository
+                .Setup(x => x.Update(teamMember));
 
             var controller = fixture.GetTeamMemberController();
-            controller.Put(teamMember);
-
+            var actionResult = controller.Put(teamMember);
+            actionResult.Should().BeOfType<OkResult>();
             fixture.TeamMemberRepository.Verify(x => x.Update(teamMember), Times.Once);
+        }
+
+        [Fact]
+        public void ShouldReturnNotFoundUpdateTeamMember()
+        {
+            var fixture = new TeamMemberControllerFixture();
+            TeamMember teamMember = new TeamMember(1, 1, "Ivan", "Petrov", "CEO", "invite.com");
+            fixture.TeamMemberRepository
+                .Setup(x => x.Read(teamMember.TeamMemberId));
+            fixture.TeamMemberRepository
+                .Setup(x => x.Update(teamMember));
+
+            var controller = fixture.GetTeamMemberController();
+            var actionResult = controller.Put(teamMember);
+            actionResult.Should().BeOfType<NotFoundResult>();
+            fixture.TeamMemberRepository.Verify(x => x.Update(teamMember), Times.Never);
         }
 
         [Fact]
         public void ShouldDeleteTeamMember()
         {
             var fixture = new TeamMemberControllerFixture();
-            int teamMemberId = 5;
-            fixture.TeamMemberRepository.Setup(x => x.Delete(teamMemberId));
+            TeamMember teamMember = new TeamMember(5, 1, "Ivan", "Petrov", "CEO", "invite.com");
+            fixture.TeamMemberRepository
+                .Setup(x => x.Read(teamMember.TeamMemberId))
+                .Returns(teamMember);
+            fixture.TeamMemberRepository
+                .Setup(x => x.Delete(teamMember.TeamMemberId));
 
             var controller = fixture.GetTeamMemberController();
-            controller.Delete(teamMemberId);
+            var actionResult = controller.Delete(teamMember.TeamMemberId);
+            actionResult.Should().BeOfType<OkResult>();
+            fixture.TeamMemberRepository.Verify(x => x.Delete(teamMember.TeamMemberId), Times.Once);
+        }
 
-            fixture.TeamMemberRepository.Verify(x => x.Delete(teamMemberId), Times.Once);
+        [Fact]
+        public void ShouldReturnNotFoundOnDeleteTeamMember()
+        {
+            var fixture = new TeamMemberControllerFixture();
+            TeamMember teamMember = new TeamMember(5, 1, "Ivan", "Petrov", "CEO", "invite.com");
+            fixture.TeamMemberRepository
+                .Setup(x => x.Read(teamMember.TeamMemberId));
+            fixture.TeamMemberRepository
+                .Setup(x => x.Delete(teamMember.TeamMemberId));
+
+            var controller = fixture.GetTeamMemberController();
+            var actionResult = controller.Delete(teamMember.TeamMemberId);
+            actionResult.Should().BeOfType<NotFoundResult>();
+            fixture.TeamMemberRepository.Verify(x => x.Delete(teamMember.TeamMemberId), Times.Never);
         }
     }
 
