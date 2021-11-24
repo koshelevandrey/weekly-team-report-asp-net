@@ -20,16 +20,25 @@ namespace CM.WeeklyTeamReport.WebApp.Controllers
         }
 
         [HttpGet("{companyId}")]
-        public Company Get(int companyId)
+        public IActionResult Get(int companyId)
         {
             var result = _repository.Read(companyId);
-            return result;
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
 
         [HttpGet]
-        public List<Company> GetAll()
+        public IActionResult GetAll()
         {
-            return _repository.ReadAll();
+            var result = _repository.ReadAll();
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
 
         [HttpPost]

@@ -2,6 +2,7 @@ using CM.WeeklyTeamReport.Domain;
 using CM.WeeklyTeamReport.Domain.Repositories;
 using CM.WeeklyTeamReport.WebApp.Controllers;
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -25,12 +26,23 @@ namespace CM.WeeklyTeamReport.WebApp.Tests
                 });
 
             var controller = fixture.GetCompanyController();
-            var companies = controller.GetAll();
+            var actionResult = controller.GetAll();
+            actionResult.Should().BeOfType<OkObjectResult>();
 
+            var companies = (List<Company>)((actionResult as ObjectResult).Value);
             companies.Should().NotBeNull();
             companies.Should().HaveCount(3);
-
             fixture.CompanyRepository.Verify(x => x.ReadAll(), Times.Once);
+        }
+
+        [Fact]
+        public void ShouldReturnNotFoundOnGetAllCompanies()
+        {
+            var fixture = new CompanyControllerFixture();
+            var controller = fixture.GetCompanyController();
+            var actionResult = controller.Get(0);
+            actionResult.Should().BeOfType<NotFoundResult>();
+            fixture.CompanyRepository.Verify(x => x.Read(0), Times.Once);
         }
 
         [Fact]
@@ -42,11 +54,22 @@ namespace CM.WeeklyTeamReport.WebApp.Tests
                 .Returns(new Company(11, "Pyaterochka", new DateTime(2015, 07, 29)));
 
             var controller = fixture.GetCompanyController();
-            var company = controller.Get(11);
+            var actionResult = controller.Get(11);
+            actionResult.Should().BeOfType<OkObjectResult>();
 
+            var company = (Company)((actionResult as ObjectResult).Value);
             company.Should().NotBeNull();
-
             fixture.CompanyRepository.Verify(x => x.Read(11), Times.Once);
+        }
+
+        [Fact]
+        public void ShouldReturnNotFoundOnGetCompany()
+        {
+            var fixture = new CompanyControllerFixture();
+            var controller = fixture.GetCompanyController();
+            var actionResult = controller.Get(0);
+            actionResult.Should().BeOfType<NotFoundResult>();
+            fixture.CompanyRepository.Verify(x => x.Read(0), Times.Once);
         }
 
         [Fact]
