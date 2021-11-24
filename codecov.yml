@@ -1,0 +1,6 @@
+coverage:
+  ignore:
+    - "CM.WeeklyTeamReport/src/CM.WeeklyTeamReport.Domain/Repositories/"
+    - "CM.WeeklyTeamReport/src/CM.WeeklyTeamReport.Domain/CM.WeeklyTeamReport.Domain.DB/" 
+    - "CM.WeeklyTeamReport/src/CM.WeeklyTeamReport.WebApp/Program.cs"
+    - "CM.WeeklyTeamReport/src/CM.WeeklyTeamReport.WebApp/Startup.cs"
