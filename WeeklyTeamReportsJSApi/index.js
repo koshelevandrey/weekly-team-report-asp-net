@@ -1,0 +1,1 @@
+// Use "npm run test" with enabled server to run tests with jest
